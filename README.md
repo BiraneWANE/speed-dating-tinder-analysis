@@ -1,98 +1,82 @@
-# Analyse des déterminants d’un match mutuel dans le dataset *Speed Dating*
+# Analyse des déterminants d'un match mutuel — Dataset *Speed Dating*
 
-Projet d’analyse exploratoire de données réalisé dans le cadre du **Bloc 2 Jedha**.  
-L’objectif est d’identifier les variables les plus associées à une **décision positive** (`dec`) puis à un **match mutuel** (`match`) dans le dataset *Speed Dating*, en adoptant une lecture **orientée produit** pour un cas d’usage type application de rencontre.
+Projet d'analyse exploratoire de données réalisé dans le cadre du **Bloc 2 Jedha**.  
+L'objectif est d'identifier les variables les plus associées à une **décision positive** (`dec`) puis à un **match mutuel** (`match`) dans le dataset *Speed Dating*, en adoptant une lecture **orientée produit** pour un cas d'usage type application de rencontre.
+
+---
 
 ## Problématique
 
-La question métier est la suivante :
-
-> **Quels facteurs augmentent réellement la probabilité qu’un rendez-vous débouche sur un intérêt réciproque ?**
+> **Quels facteurs augmentent réellement la probabilité qu'un rendez-vous débouche sur un intérêt réciproque ?**
 
 Le projet cherche notamment à distinguer :
 
 - ce qui relève du **profil avant la rencontre** ;
-- ce qui se construit **pendant l’interaction** ;
-- et les signaux qui semblent les plus utiles dans une logique de matching produit.
+- ce qui se construit **pendant l'interaction** ;
+- et les signaux les plus utiles dans une logique de matching produit.
 
-## Objectifs du notebook
+---
 
-Le notebook répond aux attentes du brief en combinant :
+## Démarche d'analyse
 
-- **statistiques descriptives** ;
-- **visualisations** ;
-- **interprétations business**.
+1. Chargement des données et compréhension de la structure
+2. Clarification de l'unité d'analyse (ligne, participant, paire)
+3. Vérification de la qualité des données
+4. Étude des deux cibles business : `dec` et `match`
+5. Analyse des préférences déclarées et des variables observées pendant l'interaction
+6. Étude des questions du brief :
+   - attractiveness
+   - intérêts partagés vs même race
+   - calibration des participants
+   - ordre de passage dans la soirée
+   - variables de contexte (écart d'âge)
+7. Bonus de modélisation : comparaison profil seul vs impressions du rendez-vous
 
-Il traite en particulier les questions suivantes :
-
-- quelles qualités sont les moins valorisées dans les préférences déclarées ?
-- cette hiérarchie diffère-t-elle selon le genre ?
-- quel est le poids réel de l’**attractiveness** ?
-- les **shared interests** comptent-ils davantage que la simple similarité démographique ?
-- les participants savent-ils correctement anticiper leur succès sur le “dating market” ?
-- l’ordre de passage dans la soirée influence-t-il les résultats ?
+---
 
 ## Jeu de données
 
-Le projet s’appuie sur le dataset classique **Speed Dating** recueilli lors d’événements expérimentaux au début des années 2000.
+Le projet s'appuie sur le dataset classique **Speed Dating** recueilli lors d'événements expérimentaux au début des années 2000.
 
-### Quelques repères utiles
+| Indicateur | Valeur |
+|---|---|
+| Lignes | 8 378 |
+| Speed dates uniques | 4 184 |
+| Participants uniques | 551 |
+| Vagues | 21 |
 
-- **8 378 lignes**
-- **4 184 speed dates uniques**
-- **551 participants uniques**
-- **21 vagues**
-- chaque ligne représente **la perception d’un participant pour un rendez-vous donné**
-- un même rendez-vous apparaît donc généralement **deux fois** dans la table brute
+Chaque ligne représente **la perception d'un participant pour un rendez-vous donné**.  
+Un même rendez-vous apparaît donc généralement **deux fois** dans la table brute.
 
-## Démarche d’analyse
-
-Le notebook suit la logique suivante :
-
-1. **chargement des données** et rappel de la structure du dataset ;
-2. clarification de l’**unité d’analyse** (ligne, participant, paire) ;
-3. vérification de la **qualité des données** ;
-4. étude des deux cibles business : **`dec`** et **`match`** ;
-5. analyse des **préférences déclarées**, puis des **variables observées pendant l’interaction** ;
-6. étude de plusieurs questions du brief :  
-   - attractiveness,  
-   - shared interests,  
-   - same race,  
-   - calibration des participants,  
-   - ordre de passage,  
-   - variables de contexte ;
-7. **bonus de modélisation** pour comparer le pouvoir explicatif du profil seul et des impressions du rendez-vous.
+---
 
 ## Principaux enseignements
 
-Les résultats les plus marquants sont les suivants :
+- Le **match mutuel** reste relativement rare
+- Les hommes disent plus souvent **oui**, mais cela ne produit pas davantage de matches mutuels
+- Les signaux les plus fortement associés à une issue positive sont surtout :
+  - l'**appréciation globale** (`like`)
+  - le **fun**
+  - les **intérêts partagés**
+  - et l'**attractiveness**
+- La simple proximité démographique est bien moins informative que la **compatibilité vécue pendant l'échange**
+- Les participants ont une **intuition partielle** de leur succès, mais restent globalement **mal calibrés**
+- Les variables de **profil seules** expliquent peu le résultat final
 
-- le **match mutuel** reste relativement rare ;
-- les hommes disent plus souvent **oui**, mais cela ne produit pas davantage de matches mutuels ;
-- les signaux les plus fortement associés à une issue positive sont surtout :
-  - l’**appréciation globale** de la personne (`like`),
-  - le **fun**,
-  - les **shared interests**,
-  - et l’**attractiveness** ;
-- la simple proximité démographique semble bien moins informative que la **compatibilité vécue pendant l’échange** ;
-- les participants ont une **intuition partielle** de leur succès potentiel, mais restent globalement **mal calibrés** ;
-- les variables de **profil seules** expliquent peu le résultat final par rapport aux variables issues de l’interaction.
+---
 
 ## Implications produit
 
-Dans une logique d’application de rencontre, les résultats suggèrent que :
+- Les variables de profil doivent être considérées comme des **signaux faibles** ou des **priors**
+- Les variables traduisant une **compatibilité concrète** sont beaucoup plus utiles
+- Un bon système de matching ne doit pas seulement rapprocher des profils "semblables", mais favoriser les combinaisons susceptibles de générer une interaction fluide et agréable
 
-- les variables de profil doivent être considérées comme des **signaux faibles** ou des **priors** ;
-- les variables traduisant une **compatibilité concrète** sont beaucoup plus utiles ;
-- un bon système de matching ne doit pas seulement rapprocher des profils “semblables”, mais favoriser les combinaisons de profils susceptibles de générer :
-  - une bonne fluidité d’échange,
-  - du plaisir pendant l’interaction,
-  - une impression de compatibilité réelle.
+---
 
 ## Structure du dépôt
 
-```text
-speed-dating-tinder-analysis/
+```
+Bloc_2 Tinder/
 ├── README.md
 ├── requirements.txt
 ├── .gitignore
@@ -100,18 +84,10 @@ speed-dating-tinder-analysis/
 │   ├── speed_dating_data.csv
 │   └── speed_dating_data_key.doc
 └── notebooks/
-    ├── speed_dating_tinder_analysis_v3.ipynb
-    └── speed_dating_tinder_analysis_v3_executed.ipynb
+    └── speed_dating_tinder_analysis.ipynb
 ```
 
-## Ordre de lecture recommandé
-
-Si vous découvrez le projet, l’ordre le plus simple est le suivant :
-
-1. **`notebooks/speed_dating_tinder_analysis_v3_executed.ipynb`**  
-   pour lire directement l’analyse avec les sorties, tableaux et graphiques déjà affichés ;
-2. **`notebooks/speed_dating_tinder_analysis_v3.ipynb`**  
-   pour consulter la version propre à relancer.
+---
 
 ## Installation et exécution
 
@@ -119,39 +95,31 @@ Si vous découvrez le projet, l’ordre le plus simple est le suivant :
 
 ```bash
 git clone <URL_DU_REPO>
-cd speed-dating-tinder-analysis
+cd "Bloc_2 Tinder"
 ```
 
 ### 2. Créer un environnement
 
 ```bash
-conda create -n speed_dating_311 python=3.11 -y
-conda activate speed_dating_311
+conda create -n speed_dating python=3.11 -y
+conda activate speed_dating
 pip install -r requirements.txt
 ```
 
-### 3. Lancer Jupyter
+### 3. Lancer le notebook
 
 ```bash
-jupyter notebook
+jupyter notebook notebooks/speed_dating_tinder_analysis.ipynb
 ```
 
-### 4. Ouvrir le notebook
+Exécuter les cellules dans l'ordre avec **Run All**.
 
-Le notebook cherche automatiquement les fichiers de données dans les emplacements les plus courants du dépôt.  
-La version exécutée permet une lecture immédiate, sans avoir à relancer toutes les cellules.
+---
 
 ## Limites
 
-Comme tout projet exploratoire, cette analyse comporte plusieurs limites :
-
-- le dataset provient d’un **speed dating expérimental**, pas d’une application mobile moderne ;
-- plusieurs variables très informatives sont mesurées **après l’interaction** ;
-- les observations ne sont pas totalement indépendantes, car un même participant apparaît plusieurs fois ;
-- certaines colonnes comportent beaucoup de valeurs manquantes ;
-- certaines questions utilisent des **échelles différentes selon les vagues**, ce qui impose une normalisation prudente.
-
-## Auteur
-
-**Birane WANE**  
-Projet réalisé pour le **Bloc 2 Jedha**.
+- Le dataset provient d'un **speed dating expérimental** datant du début des années 2000
+- Plusieurs variables très informatives sont mesurées **après interaction**
+- Les observations ne sont pas totalement indépendantes (un même participant apparaît plusieurs fois)
+- Certaines colonnes comportent beaucoup de valeurs manquantes
+- Les questionnaires n'utilisent pas toujours les mêmes échelles selon les vagues

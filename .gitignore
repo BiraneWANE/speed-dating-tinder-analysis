@@ -1,10 +1,27 @@
+# ── Fichiers personnels (ne pas pousser sur GitHub) ───────────────
+REVISION.md
+Bloc 2__Speed_Dating_Présentation.pptx
+
+# ── Python ────────────────────────────────────────────────────────
 __pycache__/
-.ipynb_checkpoints/
 *.pyc
-.DS_Store
-.env
+*.pyo
+.ipynb_checkpoints/
+
+# ── Environnements virtuels ───────────────────────────────────────
 .venv/
 venv/
 env/
+
+# ── Variables d'environnement ─────────────────────────────────────
+.env
+.env.local
+
+# ── IDE ───────────────────────────────────────────────────────────
 .idea/
 .vscode/
+
+# ── OS ────────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
